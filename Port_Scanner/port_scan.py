@@ -6,6 +6,6 @@ def scan(ip,port):
         pass
     else:
         print("[+] Port : ",port)
-ip = socket.gethostbyname('https://online.mospolytech.ru')
-for port in range(1,2000):
+ip = socket.gethostbyname('online.mospolytech.ru')
+for port in range(1,81):
     scan(ip,port)
