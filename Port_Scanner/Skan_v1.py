@@ -57,6 +57,7 @@ if __name__ == '__main__':
         logging.warning("[!] Результаты сканирования внешних сайтов могут быть неточными.")
         print("-" * 50)
 
+
     # Парсим порты
     port_list = [int(p) for p in args.ports.split(',')]
 
