@@ -1,68 +1,62 @@
-# ib-portfolio
+<div align="center">
 
-**Портфолио практических проектов по информационной безопасности**
+```py
+print("Reverse Engineering / Vulnerability Research")
+```
 
-Студент 1 курса Московского Политеха, специальность «Информационная безопасность».  
-Здесь собраны все мои самостоятельные проекты, скрипты, лабораторные работы и write-up’ы, направленные на развитие навыков в Offensive Security и Penetration Testing.
+</div>
 
----
-
-## Проекты
-
-| Проект                  | Описание                                      | Технологии              | Статус     |
-|-------------------------|-----------------------------------------------|-------------------------|------------|
-| **Port Scanner**        | Продвинутый TCP-портсканер с CLI, логированием и проверкой на фейковые ответы | Python, socket, argparse, logging | Завершён |
-| **Log Analyzer**        | Скрипт анализа серверных логов (поиск аномалий) | Python, pandas          | В работе   |
-| **Black Hat Python**    | Практические реализации из книги (TCP tools, Sniffer, Scapy и др.) | Python, Scapy           | В процессе |
-| **Vulnerable Flask App**| Демонстрационное веб-приложение с уязвимостями (SQLi, XSS) и их исправлением | Flask, SQLite           | Планируется |
-| **Password Tool**       | Генератор и проверка силы паролей               | Python                  | Планируется |
+Студент Московского Политехнического Университета («Информационная безопасность», 2 курс). Разбираю CTF-задачи по Reverse Engineering и Pwn, пишу на Python и C++, изучаю сетевую безопасность. В процессе — переход от решения чужих задач к поиску реальных уязвимостей.
 
 ---
 
-##  Цели портфолио
+### Мой стек технологий
 
-- Развитие практических навыков в области **Offensive Security**
-- Подготовка к стажировкам и первым задачам Junior Pentester / Security Analyst
-- Фиксация прогресса обучения (Black Hat Python, TryHackMe, CTF)
-
----
-
-##  Навыки и технологии
-
-**Языки и инструменты:**
-- Python (socket, argparse, logging, requests, Scapy)
-- Основы Linux (командная строка, bash)
-- Wireshark
-- Git + GitHub
-- Основы сетей (TCP/IP, OSI)
-
-**Изучаю / Планирую:**
-- Burp Suite
-- Metasploit
-- SQLMap, Gobuster
-- HackTheBox / Proving Grounds
-- Report writing (отчёты по пентесту)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Assembly](https://img.shields.io/badge/Assembly-x86-6E4C13?style=flat)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=flat&logo=kalilinux&logoColor=white)
 
 ---
 
-##  Самообразование
+### Навыки
 
-- **Black Hat Python** (2-е издание) — читаю и реализую все примеры
-- **TryHackMe** — Pre Security Path + Jr Penetration Tester
-- Участие в CTF и хакатонах (Авито, Kodik Launchpad)
+**Информационная безопасность**
+Reverse Engineering (x86-64 ELF, Go-бинарники, custom VM/bytecode), Binary Exploitation (Buffer Overflow, Format String, heap exploitation), CTF (команда perimeter) — подробности в [репозитории write-up'ов](https://github.com/Demian-Chern/ib-portfolio)
 
----
+**Сети**
+Cisco (маршрутизация и коммутация), анализ трафика — Wireshark, Scapy (Python)
 
-## Контакты
-
-- **Telegram**: @Demian_Chern
-
-
+**Разработка**
+Python (asyncio), C++ (начальный уровень), немного ассемблера x86, PostgreSQL, Docker
 
 ---
 
-**Цель:** Получить первую стажировку в области информационной безопасности / penetration testing в 2027 году.
+### Проекты
+
+| Проект | Описание | Стек | Статус |
+|---|---|---|---|
+| [**Perimeter**](https://github.com/Demian-Chern) | DevSecOps-платформа: сетевые сканеры, DLP, сканирование веб-уязвимостей, OSINT в едином GUI на Flet. Начат как хакатон-проект (Kodik Launchpad) | Python, Flet, asyncio | v1 завершена |
+| [**CTF Write-ups**](https://github.com/Demian-Chern/ib-portfolio) | Разборы задач Reverse Engineering / Pwn / Crypto с полным ходом анализа и кодом эксплойтов | Python, pwntools, Ghidra | Пополняется |
+| [**GradientProject**](https://github.com/Demian-Chern) | Клиент-серверная система защищённых вычислений: шифр Виженера, SHA-256, градиентный спуск, интерполяция сплайнами | Python, PostgreSQL, Docker | В разработке |
 
 ---
 
-⭐ Буду рад звёздам и конструктивной обратной связи по проектам!
+### CTF
+
+Участник команды [**perimeter**](https://ctftime.org/team/443226) (MosPolytech). Регулярная практика на PortSwigger Web Security Academy.
+
+---
+
+### Образование
+
+Московский Политехнический Университет — Информационная безопасность, 2 курс
+
+---
+
+### Как со мной связаться
+
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat&logo=telegram&logoColor=white)](https://t.me/Demian_Chern)
