@@ -1,0 +1,189 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>NeuroPet — SOLAR CTF (deck)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#05080b;display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px 0}
+.slide-wrap{width:min(1920px,96vw);aspect-ratio:1920/1080;position:relative;overflow:hidden;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.slide-wrap>section{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;box-sizing:border-box}</style>
+<script>function fit(){document.querySelectorAll('.slide-wrap').forEach(function(w){var s=w.querySelector('section');if(s)s.style.transform='scale('+(w.clientWidth/1920)+')';});}
+window.addEventListener('load',fit);window.addEventListener('resize',fit);</script>
+</head><body><div class="slide-wrap"><section id="cover" data-transition="fade" style="background:#0F1419;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#7FE0A8;letter-spacing:2px">SOLAR CTF · ANDROID REVERSE</p>
+<h1 style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:160px;font-weight:700;line-height:1.05;color:#E8EDE6">NeuroPet</h1>
+<p style="font-size:44px;color:#A9B6C2;line-height:1.3;width:1300px">«Нейротамагочи в каждый дом» — пятислойная матрёшка от Android-бэкапа до собственной виртуальной машины</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E7D8A">Райтап · @Demian · 17 октября 2026</p>
+<aside>Задача категории Android reverse engineering. Дан файл neuropet.ab, формат флага SOLARCTF{}.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="chain" data-transition="fade" style="background:#0F1419;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:64px">
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Путь к флагу: пять слоёв</h2>
+<div style="display:flex;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:32px;border-top:4px solid #7FE0A8;border-radius:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:44px;font-weight:700;color:#7FE0A8">01</p>
+<h3 style="font-size:32px;font-weight:600">.ab → APK</h3>
+<p style="font-size:26px;color:#A9B6C2;line-height:1.35">Не шифр, а zlib-поток</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:32px;border-top:4px solid #7FE0A8;border-radius:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:44px;font-weight:700;color:#7FE0A8">02</p>
+<h3 style="font-size:32px;font-weight:600">Пустая Java</h3>
+<p style="font-size:26px;color:#A9B6C2;line-height:1.35">Вся логика уходит в JNI</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:32px;border-top:4px solid #7FE0A8;border-radius:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:44px;font-weight:700;color:#7FE0A8">03</p>
+<h3 style="font-size:32px;font-weight:600">Скрытый dex</h3>
+<p style="font-size:26px;color:#A9B6C2;line-height:1.35">skin.dat, XOR с гаммой LCG</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:32px;border-top:4px solid #7FE0A8;border-radius:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:44px;font-weight:700;color:#7FE0A8">04</p>
+<h3 style="font-size:32px;font-weight:600">Лаборатория</h3>
+<p style="font-size:26px;color:#A9B6C2;line-height:1.35">5 тапов → run("devroom")</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:32px;border-top:4px solid #7FE0A8;border-radius:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:44px;font-weight:700;color:#7FE0A8">05</p>
+<h3 style="font-size:32px;font-weight:600">Своя VM</h3>
+<p style="font-size:26px;color:#A9B6C2;line-height:1.35">Байткод brain.bin, эмулятор на Python</p>
+</div>
+</div>
+<div style="display:flex;gap:24px;align-items:center;background:#2A1F14;padding:32px 40px;border-radius:12px">
+<x-icon name="Warning" style="color:#F2A65A;width:48px;height:48px"></x-icon>
+<p style="font-size:30px;color:#F5D9BC;line-height:1.35"><b>Главная подлянка:</b> анти-Frida / анти-debug поток в нативке убивает процесс — задача решается только статически.</p>
+</div>
+<aside>Общая схема: каждый слой прячет следующий. Динамический анализ не работает из-за защиты в libneurocore.so.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="stage1" data-transition="fade" style="background:#0F1419;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#7FE0A8;letter-spacing:2px">STAGE 1</p>
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Распаковка Android backup</h2>
+</div>
+<div style="display:flex;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<p style="font-size:32px;color:#A9B6C2;line-height:1.4">Заголовок — 4 текстовые строки, третья говорит <b style="color:#E8EDE6">none</b>: шифрования нет. Отрезаем заголовок и распаковываем zlib в .tar.</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#2A1F14;padding:28px 32px;border-radius:12px">
+<h3 style="font-size:28px;font-weight:600;color:#F2A65A">Отвлекающие манёвры</h3>
+<p style="font-size:26px;color:#F5D9BC;line-height:1.4">Пароль 0000 ничего не дешифрует. f/rList — сериализованный ArrayList с id ресурса btn_pill, к флагу не относится.</p>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;background:#161D24;padding:40px;border-radius:12px;border:1px solid #26313C">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;line-height:1.6;color:#D6E2DA">import zlib<br>d = open('neuropet.ab','rb').read()<br>i = 0<br>for _ in range(4):<br>&#160;&#160;&#160;&#160;i = d.index(b'\n', i) + 1<br>open('backup.tar','wb').write(<br>&#160;&#160;&#160;&#160;zlib.decompress(d[i:]))<br><br><span style="color:#6E7D8A"># → apps/com.solarlabs.neuropet/a/base.apk</span></p>
+</div>
+</div>
+<aside>Формат .ab: ANDROID BACKUP, версия 1, флаг сжатия 1 (zlib), шифрование none. Внутри tar — стандартная раскладка adb-бэкапа, нам нужен base.apk.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="stage2" data-transition="fade" style="background:#151B21;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#7FE0A8;letter-spacing:2px">STAGE 2</p>
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Триаж APK</h2>
+</div>
+<div style="display:flex;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-size:32px;font-weight:600;color:#7FE0A8">Ассеты</h3>
+<table style="font-size:26px;color:#D6E2DA">
+<tr><th style="width:55%;font-family:'JetBrains Mono', 'Courier New', monospace">Файл</th><th style="width:45%">Что это</th></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace">brain.bin</td><td>байткод VM (NRBC)</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace">skin.dat</td><td>зашифрованный dex</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace">weights.bin</td><td>балласт, 256 КБ</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace">libneurocore.so</td><td>нативная VM</td></tr>
+</table>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-size:32px;font-weight:600;color:#7FE0A8">Ключевые классы</h3>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4"><b style="color:#E8EDE6">MainActivity</b> — тамагочи, анти-эмулятор и анти-root</p>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4"><b style="color:#E8EDE6">core.Q</b> — JNI-обёртка: nInit, nRun, nQuery</p>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4"><b style="color:#E8EDE6">App.onCreate</b> — расшифровывает и грузит скрытый dex через InMemoryDexClassLoader</p>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4"><b style="color:#E8EDE6">AboutActivity</b> — тап по логотипу → hit() → LabActivity</p>
+</div>
+</div>
+<aside>jadx -d out base.apk. Java-код обфусцирован и почти пуст. Имена классов скрытого dex тоже XOR-ятся в рантайме (например, с ключом 61). Анти-эмулятор в MainActivity лишь меняет поведение питомца, но сигнализирует: автор против динамики.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="stage3" data-transition="fade" style="background:#0F1419;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#7FE0A8;letter-spacing:2px">STAGE 3</p>
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Скрытый dex в skin.dat</h2>
+</div>
+<div style="display:flex;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<p style="font-size:32px;color:#A9B6C2;line-height:1.4">Гамма — LCG с константами glibc <b style="color:#E8EDE6">rand()</b>:</p>
+<ul style="font-size:28px;color:#A9B6C2;line-height:1.5">
+<li>seed — первые 2 байта файла (LE)</li>
+<li>state = state·1103515245 + 12345</li>
+<li>ключ = (state » 16) &amp; 0xff</li>
+<li>первые 4 байта → магия dex\n</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;background:#161D24;padding:40px;border-radius:12px;border:1px solid #26313C">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;line-height:1.6;color:#D6E2DA">g = open('skin.dat','rb').read()<br>st = g[0] | (g[1] &lt;&lt; 8)<br>out = bytearray()<br>for b in g[2:]:<br>&#160;&#160;&#160;&#160;st = (st*1103515245 + 12345)<br>&#160;&#160;&#160;&#160;st &amp;= 0xffffffff<br>&#160;&#160;&#160;&#160;out.append(((st&gt;&gt;16)&amp;0xff) ^ b)<br>out[0:4] = b'dex\n'</p>
+</div>
+</div>
+<aside>Имя ассета neuro/skin.dat собирается в App.onCreate из массива, XOR с 43. Расшифрованный dex содержит пакет com.solarlabs.neuropet.lab.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="lab" data-transition="fade" style="background:#151B21;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:72px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#7FE0A8;letter-spacing:2px">STAGE 3 · ПРОДОЛЖЕНИЕ</p>
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Секретная лаборатория</h2>
+</div>
+<div style="display:flex;gap:16px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2730;padding:32px;border-radius:12px">
+<h3 style="font-size:30px;font-weight:600">5 тапов</h3>
+<p style="font-size:24px;color:#A9B6C2;line-height:1.35">по логотипу за 1500 мс</p>
+</div>
+<x-shape kind="arrow-right" style="background:#7FE0A8;width:56px;height:28px"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2730;padding:32px;border-radius:12px">
+<h3 style="font-size:30px;font-weight:600">Trig.hit()</h3>
+<p style="font-size:24px;color:#A9B6C2;line-height:1.35">возвращает true</p>
+</div>
+<x-shape kind="arrow-right" style="background:#7FE0A8;width:56px;height:28px"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2730;padding:32px;border-radius:12px">
+<h3 style="font-size:30px;font-weight:600">LabActivity</h3>
+<p style="font-size:24px;color:#A9B6C2;line-height:1.35">пара секунд анимации</p>
+</div>
+<x-shape kind="arrow-right" style="background:#7FE0A8;width:56px;height:28px"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2730;padding:32px;border-radius:12px;border:2px solid #7FE0A8">
+<h3 style="font-size:30px;font-weight:600;color:#7FE0A8">Нативная VM</h3>
+<p style="font-size:24px;color:#A9B6C2;line-height:1.35">run + query(0)</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;background:#0F1419;padding:36px 40px;border-radius:12px;border:1px solid #26313C">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;line-height:1.6;color:#D6E2DA">Io io = Wire.link;&#160;&#160;<span style="color:#6E7D8A">// = core.Q</span><br>io.run(de(53, {81,80,67,71,90,90,88}));&#160;&#160;<span style="color:#6E7D8A">// "devroom"</span><br>LabHold.seg = io.query(0);</p>
+</div>
+<aside>Аргумент de(53, {...}) — XOR с 53, получается строка devroom. Лаборатория просит нативную VM выполнить функцию devroom и вернуть результат. Вся соль — в libneurocore.so.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="vm" data-transition="fade" style="background:#0F1419;color:#E8EDE6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#7FE0A8;letter-spacing:2px">STAGES 4–5</p>
+<h2 style="font-size:72px;font-weight:600;line-height:1.1">Стековая VM в libneurocore.so</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:40px;border-radius:12px">
+<x-icon name="Code" style="color:#7FE0A8;width:48px;height:48px"></x-icon>
+<h3 style="font-size:36px;font-weight:600">Байткод</h3>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4">VM исполняет brain.bin; каждая функция зашифрована тем же LCG-XOR</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:40px;border-radius:12px">
+<x-icon name="Wrench" style="color:#7FE0A8;width:48px;height:48px"></x-icon>
+<h3 style="font-size:36px;font-weight:600">Эмулятор</h3>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4">Реверсим опкоды VM и пишем свой интерпретатор на Python</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#161D24;padding:40px;border-radius:12px">
+<x-icon name="Key" style="color:#7FE0A8;width:48px;height:48px"></x-icon>
+<h3 style="font-size:36px;font-weight:600">devroom</h3>
+<p style="font-size:28px;color:#A9B6C2;line-height:1.4">Прогон функции выдаёт 4 сегмента, которые складываются во флаг</p>
+</div>
+</div>
+<div style="display:flex;gap:24px;align-items:center;background:#2A1F14;padding:32px 40px;border-radius:12px">
+<x-icon name="Lock" style="color:#F2A65A;width:48px;height:48px"></x-icon>
+<p style="font-size:30px;color:#F5D9BC;line-height:1.35">Анти-Frida поток в нативке убивает процесс — поэтому эмуляция, а не хуки.</p>
+</div>
+<aside>В райтапе этапы 4–5 описаны кратко, в TL;DR. Ключевая идея: вместо динамики — статический реверс VM и собственный эмулятор.</aside>
+</section>
+</div>
+<div class="slide-wrap"><section id="flag" data-transition="fade" style="background:#7FE0A8;color:#0F1419;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:48px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#1F4A33;letter-spacing:2px">ФЛАГ</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:64px;font-weight:700;line-height:1.2;color:#0F1419;white-space:nowrap">SOLARCTF{FR1d0Mp_Sc4n_p4G3s_in_GamEEE}</p>
+<p style="font-size:40px;color:#1F3A2A;line-height:1.35;width:1400px">Пять слоёв, ноль динамики: zlib → JNI → LCG-dex → секретный экран → своя VM.</p>
+<aside>Итог: задача решается чисто статически. Отвлекающие манёвры — пароль 0000, f/rList и weights.bin.</aside>
+</section>
+</div></body></html>
