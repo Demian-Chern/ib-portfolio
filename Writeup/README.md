@@ -33,6 +33,32 @@
 | Fortune Teller (format string) | pwn | [writeup](fortID_CTF/fortune-teller_pwn/writeup.md) |
 | Sticker Booth (heap, WIP) | misc | [writeup](fortID_CTF/sticker-booth_misc/writeup.md) |
 
+## Hack.lu CTF
+
+| Задача | Категория | Разбор |
+|---|---|---|
+| turbo-malloc (Turbo Notes) | pwn | [writeup](Hack.lu_CTF/turbo-malloc_pwn/writeup.md) |
+| CHIP | pwn | [writeup](Hack.lu_CTF/chip_pwn/writeup.md) |
+| declassifier | pwn | [writeup](Hack.lu_CTF/declassifier_pwn/writeup.md) |
+| License Validation Suite | rev | [writeup](Hack.lu_CTF/license-validation-suite_rev/writeup.md) |
+| chall (VM, 55 символов) | rev | [writeup](Hack.lu_CTF/chall-vm_rev/writeup.md) |
+
+## RSTCON
+
+| Задача | Категория | Разбор |
+|---|---|---|
+| outlet | pwn | [writeup](RSTCON_CTF/outlet_pwn/writeup.md) |
+| RST Hydro Event Logger | pwn | [writeup](RSTCON_CTF/hydro-event-logger_pwn/writeup.md) |
+| ThoughtSlop | pwn | [writeup](RSTCON_CTF/thoughtslop_pwn/writeup.md) |
+| Carry (SH-2) | rev | [writeup](RSTCON_CTF/carry-sh2_rev/writeup.md) |
+
+## cruXipher
+
+| Задача | Категория | Разбор |
+|---|---|---|
+| 420blazeit | pwn | [writeup](cruXipher_CTF/420blazeit_pwn/writeup.md) |
+| 8-bit VM | rev | [writeup](cruXipher_CTF/8-bit-vm_rev/writeup.md) |
+
 ## gaslightCTF
 
 | Задача | Категория | Разбор |
