@@ -32,6 +32,24 @@
 | Doctor Bye Bye (ORDER BY Blind SQLi) | web | [writeup](fortID_CTF/doctor-bye-bye_web/writeup.md) |
 | Fortune Teller (format string) | pwn | [writeup](fortID_CTF/fortune-teller_pwn/writeup.md) |
 | Sticker Booth (heap, WIP) | misc | [writeup](fortID_CTF/sticker-booth_misc/writeup.md) |
+| Baby Crypto (AES-CTR, nonce reuse) | crypto | [writeup](fortID_CTF/baby-crypto_crypto/writeup.md) |
+| Baby Pwn (UAF) | pwn | [writeup](fortID_CTF/baby-pwn_pwn/writeup.md) |
+| Baby Rev (chall.pyc, T9) | rev | [writeup](fortID_CTF/baby-rev_rev/writeup.md) |
+| DESBox (3DES complementation) | crypto | [writeup](fortID_CTF/desbox_crypto/writeup.md) |
+
+## hiCTF
+
+| Задача | Категория | Разбор |
+|---|---|---|
+| Apex Settlement Engine (TOCTOU) | pwn | [writeup](hiCTF/apex_pwn/writeup.md) |
+| letmeout (Jinja2 SSTI) | misc | [writeup](hiCTF/letmeout_misc/writeup.md) |
+| Cold Circuit | rev | [writeup](hiCTF/cold-circuit_rev/writeup.md) |
+| cold-beacon (Nim) | rev | [writeup](hiCTF/cold-beacon_rev/writeup.md) |
+| snaptool (Crystal) | rev | [writeup](hiCTF/snaptool_rev/writeup.md) |
+| Sentinel Gateway (CFF, math) | rev | [writeup](hiCTF/sentinel-gateway_rev/writeup.md) |
+| inner-engine (bytecode VM) | rev | [writeup](hiCTF/inner-engine_rev/writeup.md) |
+| Last Execution (custom VM) | rev | [writeup](hiCTF/last-execution_rev/writeup.md) |
+| signal_lock (BEAM) | rev | [writeup](hiCTF/signal-lock_rev/writeup.md) |
 
 ## Hack.lu CTF
 
